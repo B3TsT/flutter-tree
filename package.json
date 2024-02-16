@@ -10,6 +10,10 @@
   "categories": [
     "Other"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/B3TsT/flutter-tree.git"
+  },
   "activationEvents": [],
   "main": "./out/extension.js",
   "contributes": {
