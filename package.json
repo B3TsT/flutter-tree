@@ -1,8 +1,8 @@
 {
-  "name": "flutter-tree",
-  "displayName": "Flutter Tree",
+  "name": "flutter-tree-comments",
+  "displayName": "Flutter Tree Comments",
   "description": "Extension created by B3TsT",
-  "version": "0.0.1",
+  "version": "0.0.12",
   "publisher": "B3TsT",
   "engines": {
     "vscode": "^1.86.0"
@@ -10,6 +10,7 @@
   "categories": [
     "Other"
   ],
+  "icon": "assets/icon/logo-tree-vscode.jpeg",
   "repository": {
     "type": "git",
     "url": "https://github.com/B3TsT/flutter-tree.git"

@@ -14,16 +14,42 @@ export function activate(context: vscode.ExtensionContext) {
   // Register command to open the panel
   let disposable = vscode.commands.registerCommand(
     "flutter-tree.openPanel",
-    () => {
-      // Get opened folders
-      const folders = vscode.workspace.workspaceFolders;
-      let htmlContent = "<ul>";
-      if (folders) {
-        folders.forEach((folder) => {
-          const folderPath = folder.uri.fsPath;
-          htmlContent += generateHTMLForDirectory(folderPath);
-        });
+    async () => {
+      // Get the root path of the workspace
+      const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+      if (!rootPath) {
+        vscode.window.showErrorMessage("No workspace opened.");
+        return;
       }
+
+      // Get a list of subdirectories in the root path
+      const subdirectories = fs
+        .readdirSync(rootPath, { withFileTypes: true })
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => dirent.name);
+
+      if (subdirectories.length === 0) {
+        vscode.window.showInformationMessage("No subdirectories found.");
+        return;
+      }
+
+      // Show QuickPick to choose a subdirectory
+      const selectedDirectory = await vscode.window.showQuickPick(
+        subdirectories,
+        {
+          placeHolder: "Select a subdirectory",
+        }
+      );
+
+      if (!selectedDirectory) {
+        vscode.window.showInformationMessage("No subdirectory selected.");
+        return;
+      }
+
+      // Generate HTML content for the selected directory
+      const selectedPath = joinPaths(rootPath, selectedDirectory);
+      let htmlContent = "<ul>";
+      htmlContent += generateHTMLForDirectory(selectedPath);
       htmlContent += "</ul>";
 
       // Create and show panel
@@ -80,8 +106,8 @@ function getFileComment(filePath: string): string | undefined {
     const lines = fileContent.split("\n");
     for (const line of lines) {
       const trimmedLine = line.trim();
-      if (trimmedLine.startsWith("// * -")) {
-        return trimmedLine.replaceAll("// * - ", "");
+      if (trimmedLine.startsWith("// *")) {
+        return trimmedLine.replaceAll("// *", "");
       }
       if (!trimmedLine.endsWith("//")) {
         break;
