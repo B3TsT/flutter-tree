@@ -13,6 +13,6 @@ settings:
 ---
 
 ### Example
-<p align = center ><img src="assets/ss/Captura.PNG"> </p>
+![image](https://github.com/B3TsT/flutter-tree/assets/87993847/3335d97d-fa1d-4fb7-8d2d-09017e6f30bd)
 
 **Enjoy!**

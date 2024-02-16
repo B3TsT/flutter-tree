@@ -1,8 +1,9 @@
 {
   "name": "flutter-tree",
   "displayName": "Flutter Tree",
-  "description": "",
+  "description": "Extension created by B3TsT",
   "version": "0.0.1",
+  "publisher": "B3TsT",
   "engines": {
     "vscode": "^1.86.0"
   },
